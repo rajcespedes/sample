@@ -1,7 +1,8 @@
 from faker import Faker
 import pandas as pd
 import numpy as np
-# from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
+from sklearn.svm import LinearSVC
 
 fake = Faker()
 
@@ -35,6 +36,7 @@ def generate_dataset():
 
 data = generate_dataset()
 
+
 for i in data:
     if(list.index(i['plan']) == 9):
         i['upsale'] = ''
@@ -47,21 +49,18 @@ df = pd.DataFrame(data, columns=data[0].keys())
 
 print(df)
     
+# df.to_csv('sample.csv')
 
-# for i in range(21):
-    # print(compiled[0])
-    # if(i.index('plan') == 9):
-        # break
-    # i.index('plan')
-    # print(i.index('plan'))
+# x = df.drop('upsale', axis=1)
 
-# print(list.index('Smart Premium 5'))
+# y = df['upsale']
 
-# if(
-    
-# )
+# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
-# print(compiled[0].keys())
+# model = LinearSVC()
 
-df.to_csv('sample.csv')
+# model.train()
+
+
+# print(y)
 
