@@ -7,37 +7,61 @@ fake = Faker()
 
 compiled = []
 
-for i in range(1,3):
-    print(fake.words(1,ext_word_list=['100MB','500MB','1GB','3GB','5GB']))
 
-    fake.name()
+list=['Smart Especial 1','Smart Especial 2','Smart Especial 3','Smart Especial 4','Smart Especial 5',
+      'Smart Premium 1','Smart Premium 2','Smart Premium 3','Smart Premium 4','Smart Premium 5']
 
 
-for i in range(1,1001):
-    customer = {
-        'name': fake.name(),
-        'service_id': fake.msisdn(),
-        'voice_usage': np.random.randint(1320),
-        'data_usage': np.random.randint(69895),
-        'sms_usage': np.random.randint(1320),
-        'plan': fake.words(1,ext_word_list=['Smart Especial 1','Smart Especial 2','Smart Especial 3','Smart Especial 4','Smart Especial 5',
-                                      'Smart Premium 1','Smart Premium 2','Smart Premium 3','Smart Premium 4','Smart Premium 5'])[0],
-        'quantity': np.random.randint(30),
-        'packages': fake.words(1,ext_word_list=['100MB','500MB','1GB','3GB','5GB'])[0],
-        'upsale': ''
-    }
+def generate_dataset():
+    for i in range(1,1001):
+        customer = {
+            'name': fake.name(),
+            'service_id': fake.msisdn(),
+            'voice_usage': np.random.randint(1,1320),
+            'data_usage': np.random.randint(1,69895),
+            'sms_usage': np.random.randint(1,1320),
+            'plan': fake.words(1,ext_word_list=['Smart Especial 1','Smart Especial 2','Smart Especial 3','Smart Especial 4','Smart Especial 5',
+                                        'Smart Premium 1','Smart Premium 2','Smart Premium 3','Smart Premium 4','Smart Premium 5'])[0],
+            'quantity': np.random.randint(30),
+            'packages': fake.words(1,ext_word_list=['100','500','1024','3072','5120'])[0],
+            'upsale': ''
+        }
+   
+        compiled.append(customer)
     
-    # print (customer)
-    compiled.append(customer)
-
-if(
     
-):
+    return compiled
 
-print(compiled[0].keys())
 
-customers = pd.DataFrame(compiled,columns=compiled[0].keys())
+data = generate_dataset()
 
-print(customers)
+for i in data:
+    if(list.index(i['plan']) == 9):
+        i['upsale'] = ''
+    else:
+        num = list.index(i['plan'])
+        i['upsale'] = list[num + 1]
+    
 
-customers.to_csv('sample.csv')
+df = pd.DataFrame(data, columns=data[0].keys())
+
+print(df)
+    
+
+# for i in range(21):
+    # print(compiled[0])
+    # if(i.index('plan') == 9):
+        # break
+    # i.index('plan')
+    # print(i.index('plan'))
+
+# print(list.index('Smart Premium 5'))
+
+# if(
+    
+# )
+
+# print(compiled[0].keys())
+
+df.to_csv('sample.csv')
+
